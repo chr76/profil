@@ -1,0 +1,22 @@
+{% extends '/admin/index.html.twig' %}
+
+{% block left_column %}
+
+        {% include "admin/_knowledge_list.html.twig" %}
+        <a class="w-100 btn btn-primary btn-lg" href="{{ path('admin_knowledge') }}">Ajouter une connaissance/compétence</a>
+
+        <hr class="my-4">
+
+        {% include "admin/_presentation_list.html.twig" %}
+        <a class="w-100 btn btn-primary btn-lg" href="{{ path('admin_presentation') }}">Ajouter une présentation</a>
+
+        <hr class="my-4">
+
+        {% include "admin/_website_list.html.twig" %}
+        <a class="w-100 btn btn-primary btn-lg" href="{{ path('admin_website') }}">Ajouter un site web</a>
+
+        <hr class="my-4">
+
+        {% include "admin/_example_list.html.twig" %}
+
+{% endblock %}

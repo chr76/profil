@@ -1,0 +1,8 @@
+html {
+    font-size: 100%;
+	box-sizing: content-box;
+}
+
+*, *::before, *::after {
+    box-sizing: inherit;
+}

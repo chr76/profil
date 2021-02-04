@@ -1,0 +1,14 @@
+				<div class="item competence" id="know<?=$i?>">
+					<img src="{{ asset( 'img/icons/' ~ item.icon|default('default.png') ) }}" alt="{{ item.title }}" class="icon">
+					<div class="legend">
+						<h3>{{ item.title }}</h3>
+						<p>
+						{% for star in 1..4 %}
+						<i class="fa{% if item.level >= star %}s{% else %}r{% endif %} fa-star"></i>
+						{% endfor %}
+						</p>
+						<p>{{ item.category.title|default('') }}</p>
+						<p>{{ item.description }}</p>
+						{# <a href="#">Exemples</a> #}
+					</div>
+				</div>

@@ -1,0 +1,13 @@
+{% extends '/admin/index.html.twig' %}
+
+{% block left_column %}
+        <h5 class="mb-3">{{ title }}</h5>
+        {{ form_start(article_form) }}
+        {{ form_rest(article_form) }}
+        <a class="mt-4 btn btn-secondary" href="{{ path('admin_dashboard')}}#{{ article_form.vars.value.type }}{% if article_form.vars.value.id is not empty %}_{{ article_form.vars.value.id }}{% endif %}"><i class="fa fa-reply"></i> Annuler</a>
+        <button class="mt-4 btn btn-primary" type="submit"><i class="fa fa-edit"></i> Enregistrer</button>
+        {% if article_form.vars.value.id is not null %}
+        <a class="mt-4 btn btn-danger" href="{{ path('admin_article_suppr', {'type': type, 'id': article_form.vars.value.id})}}"><i class="fa fa-trash"></i> Supprimer</a>
+        {% endif %}
+        {{ form_end(article_form) }}
+{% endblock %}

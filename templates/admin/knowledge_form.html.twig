@@ -1,0 +1,107 @@
+{% extends '/admin/index.html.twig' %}
+
+{% block left_column %}
+        <h5 class="mb-3">Ajouter une connaissances/compétences</h5>
+        {{ form_start(knowledge_form) }}
+        <div class="row"> 
+          <div class="col-2">
+            <div class="form-group">
+            {{ form_label(knowledge_form.icon, 'Icône')}}
+              <button type="button" class="btn" data-bs-toggle="modal" data-bs-target="#icons_modal">
+                {% set icon_filename = "default.png" %}
+                {% if knowledge_form.vars.value.icon is not empty %}
+                {% set icon_filename = knowledge_form.vars.value.Icon %}
+                {% endif %}
+                <img id="knowledge_icon_img" class="bd-placeholder-img flex-shrink-0 me-2 rounded" src="{{ asset('img/icons/' ~  icon_filename) }}" alt="{{ icon_filename }}" width="32" height="32">
+              </button>
+            {{ form_widget(knowledge_form.icon, { 'attr': { 'readonly': 'readonly', 'hidden': 'hidden' }})}}
+            {{ form_errors(knowledge_form.icon)}}
+            </div>
+          </div>
+          <div class="col-10">
+            <div class="row">
+              <div class="form-group">
+              {{ form_label(knowledge_form.title, 'Nom')}}
+              {{ form_widget(knowledge_form.title)}}
+              {{ form_errors(knowledge_form.title)}}
+              </div>
+            </div>
+            <div class="row">
+              <div class="col">
+                <div class="form-group">
+                {{ form_label(knowledge_form.description)}}
+                {{ form_widget(knowledge_form.description)}}
+                {{ form_errors(knowledge_form.description)}}
+                </div>
+              </div>
+              <div class="col">
+                <div class="form-group">
+                {{ form_label(knowledge_form.category, 'Catégorie')}}
+                {{ form_widget(knowledge_form.category, {'attr': {'class': 'form-select'}})}}
+                {{ form_errors(knowledge_form.category)}}
+                </div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-4">
+                <div class="form-group">
+                {{ form_label(knowledge_form.domain)}}
+                {{ form_widget(knowledge_form.domain, {'attr': {'class': 'form-select'}})}}
+                {{ form_errors(knowledge_form.domain)}}
+                </div>
+              </div>
+              <div class="col-4">
+                <div class="form-group">
+                {{ form_label(knowledge_form.level)}}
+                {{ form_widget(knowledge_form.level, {'attr': {'class': 'form-select'}})}}
+                {{ form_errors(knowledge_form.level)}}
+                </div>
+              </div>
+              <div class="col-4">
+              {{ form_rest(knowledge_form) }}
+              </div>
+            </div>
+          </div>
+        </div>
+        <a class="mt-4 btn btn-secondary" href="{{ path('admin_dashboard')}}#knowledge{% if knowledge_form.vars.value.id is not empty %}_{{knowledge_form.vars.value.id}}{% else %}s{% endif %}"><i class="fa fa-reply"></i> Annuler</a>
+        <button class="mt-4 btn btn-primary" type="submit"><i class="fa fa-edit"></i> Enregistrer</button>
+        {% if knowledge_form.vars.value.id is not null %}
+        <a class="mt-4 btn btn-danger" href="{{ path('admin_knowledge_suppr', {'id': knowledge_form.vars.value.id})}}"><i class="fa fa-trash"></i> Supprimer</a>
+        {% endif %}
+        {{ form_end(knowledge_form) }}
+
+        <hr class="my-4">
+
+        {{ form_start(category_form) }}
+        <div class="input-group">
+          <span class="input-group-text">Catégorie</span>
+          {{ form_widget(category_form.title, {'attr': {'placeholder': 'Nouvelle catégorie'}})}}
+          {{ form_errors(category_form.title)}}
+          <button class="btn btn-primary" type="submit">Ajouter</button>
+        </div>
+        {{ form_rest(category_form) }}
+        {{ form_end(category_form) }}
+
+        <div class="modal fade" id="icons_modal" tabindex="-1" aria-labelledby="icons_modalLabel" aria-hidden="true">
+          <div class="modal-dialog">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title"></h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+              </div>
+              <div class="modal-body">
+              {% set used_icons = knowledges|map(k => k.icon) %}
+              {% for icon in icons %}
+                <button class="btn btn-lg icon_select_button{% if icon in used_icons %} btn-secondary{% endif %}">
+                  <img class="bd-placeholder-img flex-shrink-0 me-2 rounded" src="{{ asset('img/icons/' ~  icon) }}" alt="{{ icon }}" width="32" height="32">
+                </button>
+              {% endfor %}
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+              </div>
+            </div>
+          </div>
+        </div>
+{% endblock %}
+

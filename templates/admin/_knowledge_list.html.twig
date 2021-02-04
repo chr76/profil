@@ -1,0 +1,22 @@
+
+        <h4 class="mb-3">Connaissances/Compétences <span class="fs-6 fw-lighter">({{ competences|length + connaissances|length + knowledges|length }})</span></h4>
+        <div class="my-3 p-3 bg-white rounded shadow-sm" id="knowledges">
+          {% if competences|length > 0 %}
+          <h6 class="border-bottom pb-2 mb-0" id="competences">Compétences <span class="fs-6 fw-lighter">({{ competences|length }})</span></h6>
+          {% for knowledge in competences %}
+          {% include "admin/_knowledge_item.html.twig" %}
+          {% endfor %}
+          {% endif %}
+          {% if connaissances|length > 0 %}
+          <h6 class="border-bottom pb-2 mb-0 mt-3" id="connaissances">Connaissances <span class="fs-6 fw-lighter">({{ connaissances|length }})</span></h6>
+          {% for knowledge in connaissances %}
+          {% include "admin/_knowledge_item.html.twig" %}
+          {% endfor %}
+          {% endif %}
+          {% if knowledges|length > 0 %}
+          <h6 class="border-bottom pb-2 mb-0 mt-3" id="connaissances">Autres <span class="fs-6 fw-lighter">({{ knowledges|length }})</span></h6>
+          {% for knowledge in knowledges %}
+          {% include "admin/_knowledge_item.html.twig" %}
+          {% endfor %}
+          {% endif %}
+        </div>

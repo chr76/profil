@@ -1,0 +1,18 @@
+.admin_ {
+  &_main {
+    grid-area:main;
+    display: grid;
+    grid-template-areas: "content toc";
+    grid-template-columns:2fr 1.5fr;
+    gap: 2rem;
+  }
+  &_affix {
+    grid-area:toc;
+    position:sticky;
+    top:5rem;
+    height:calc(100vh - 7rem);
+  }
+  &_content {
+    grid-area: content;
+  }
+}

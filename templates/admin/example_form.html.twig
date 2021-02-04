@@ -1,0 +1,37 @@
+{% extends '/admin/index.html.twig' %}
+
+{% block left_column %}
+        <h5 class="mb-3">Ajouter un exemple pour {{ example_form.vars.value.title }}</h5>
+        <div class="my-3 p-3 bg-white rounded shadow-sm" >
+                <div class="d-flex pt-3{% if not example_form.vars.value.knowledge.activate %} text-muted{% endif %}">
+                        <a href="{{ path('admin_knowledge', {'id': example_form.vars.value.knowledge.id}) }}" class="bd-placeholder-img flex-shrink-0 me-2 rounded" style="text-decoration: none" title="Modifier">
+                                {% if example_form.vars.value.knowledge.icon is empty %}
+                                <img src="https://dummyimage.com/32/007bff/fff" alt="placeholder" width="32" height="32">
+                                {% else %}
+                                <img src="{{ asset('img/icons/' ~  example_form.vars.value.knowledge.icon) }}" alt="{{ example_form.vars.value.knowledge.icon }}" width="32" height="32">
+                                {% endif %}
+                        </a>
+                        <div class="pb-3 mb-0 small lh-sm border-bottom w-100">
+                        <div class="d-flex justify-content-between">
+                        <div>
+                                <strong class="text-gray-dark">{{ example_form.vars.value.knowledge.title }}</strong>
+                                {% if example_form.vars.value.knowledge.category is not empty %}
+                                <span class="badge bg-secondary">{{ example_form.vars.value.knowledge.category.title }}</span>
+                                {% endif %}
+                        </div>
+                        {% if example_form.vars.value.knowledge.level is not empty %}<span>{{ example_form.vars.value.knowledge.level }}★</span>{% endif %}
+                        <span class="fa {% if example_form.vars.value.knowledge.activate %}fa-eye{% else %}fa-eye-slash{% endif %}"></span>
+                        </div>
+                        <span class="d-block">{{ example_form.vars.value.knowledge.description }}</span>
+                        </div>
+                </div>
+        </div>
+        {{ form_start(example_form) }}
+        {{ form_rest(example_form) }}
+        <a class="mt-4 btn btn-secondary" href="{{ path('admin_dashboard')}}#knowledge_{{ example_form.vars.value.knowledge.id }}"><i class="fa fa-reply"></i> Annuler</a>
+        <button class="mt-4 btn btn-primary" type="submit"><i class="fa fa-edit"></i> Enregistrer</button>
+        {% if example_form.vars.value.id is not null %}
+        <a class="mt-4 btn btn-danger" href="{{ path('admin_article_suppr', {'type': 'exemple', 'id': example_form.vars.value.id})}}"><i class="fa fa-trash"></i> Supprimer</a>
+        {% endif %}
+        {{ form_end(example_form) }}
+{% endblock %}

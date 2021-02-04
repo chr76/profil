@@ -1,0 +1,24 @@
+        <h4 class="mb-3" id="exemples">Exemples <span class="fw-lighter fs-6">({{ examples|length }})</span></h4>
+
+        <div class="my-3 p-3 bg-white rounded shadow-sm" id="exemples">
+          {% for example in examples %}
+          <div class="d-flex pt-3{% if not example.activate %} text-muted{% endif %}" id="exemple_{{ example.id }}">
+            <a href="{{ path('admin_example', {'id': example.id}) }}" class="bd-placeholder-img flex-shrink-0 me-2 rounded" style="text-decoration: none" title="Modifier">
+              {% if example.knowledge.icon is empty %}
+              <img src="https://dummyimage.com/32/007bff/fff" alt="placeholder" width="32" height="32">
+              {% else %}
+              <img src="{{ asset('img/icons/' ~  example.knowledge.icon) }}" alt="{{ example.knowledge.icon }}" width="32" height="32">
+              {% endif %}
+            </a>
+            <div class="pb-3 mb-0 small lh-sm{% if not loop.last %} border-bottom{% endif %} w-100">
+              <div class="d-flex justify-content-between">
+                <strong class="text-gray-dark">{{ example.title }}</strong>
+                <span class="fa {% if example.activate %}fa-eye{% else %}fa-eye-slash{% endif %}"></span>
+                <a href="#knowledge_{{ example.knowledge.id }}" class="fa fa-list" style="text-decoration: none" title="Aller à {{ example.knowledge.title }}"></a>
+                <a href="{{ path('admin_example', {'id': example.knowledge.id}) }}" class="fa fa-edit" style="text-decoration: none" title="Modifier"></a>
+              </div>
+              <span class="d-block">{{ example.content }}</span>
+            </div>
+          </div>
+          {% endfor %}
+        </div>
