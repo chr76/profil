@@ -10,7 +10,9 @@
 
 {% block javascripts %}
 	{{ encore_entry_script_tags('app') }}
-
+	{{ encore_entry_script_tags('scene') }}
+{# <script src="js/three.js"></script> #}
+{# <script src="js/myscene.js"></script> #}
 {% endblock %}
 
 {% block body %}
@@ -18,46 +20,73 @@
 		<div id="splash">
 			<h1>Portfolio</h1>
 			<h2>Christophe Rousselet</h2>
-			<p class="limitwidth"></p>
+			{# <p class="limitwidth"></p> #}
+			<canvas></canvas>
 		</div>
 	</header>
 	<main class="limitwidth">
-		<aside class="right">
-			<h2>Présentation</h2>
-			<p class="presentation">
-			{% if presentation.content is defined %}
-				{{ presentation.content }}
+		<aside class="home_right">
+			<div id="home_presentation">
+				<h2>Présentation</h2>
+				<p class="presentation">
+				{% if presentation.content is defined %}
+					{{ presentation.content }}
+				{% endif %}
+				</p>
+			</div>
+			<div id="home_description">
+				<h2>Cette page</h2>
+				<p>
+					Sur cette page sont présenté mes compétences&nbsp;: des logiciels et langages que j'utilise régulièrement ou pour lesquels j'ai une expérience professionnelle.
+					Les connaissances sont les logiciels ou langage que je maîtrise partiellement.
+					Les sites sont des exemples de réalisations.
+				</p>
+			</div>
+			<div id="login">
+				<h2>Login</h2>
+				<p>
+				{% if user is defined and user is same as("admin") %}
+					<button>Déconnexion</button>
+				{% else %}
+					<input type="text" name="login" id="login" placeholder="login">
+					<input type="password" name="password" id="password" placeholder="password">
+				{% endif %}
+				</p>
+			</div>
+			{% if user is defined and user is same as("admin") %}
+			<div id="admin">
+				<h2>Admin</h2>
+				<p>
+					<a href="/admin">➡</a>
+				</p>
+			</div>
 			{% endif %}
-			</p>
-			<h2>Cette page</h2>
-			<p>
-				Sur cette page sont présenté mes compétences&nbsp;: des logiciels et langages que j'utilise régulièrement ou pour lesquels j'ai une expérience professionnelle.
-				Les connaissances sont les logiciels ou langage que je maîtrise partiellement.
-				Les sites sont des exemples de réalisations.
-			</p>
-			<h2>Login</h2>
-			<p>
-			<input type="text" name="login" id="login">
-			<input type="password" name="password" id="password">
-			</p>
-			<h2>Admin</h2>
-			<p>
-				<a href="/admin">➡</a>
-			</p>
 		</aside>
-		<section class="group left">
+		<section class="home_group home_left">
+		{% if competences is defined and competences|length > 0 %}
 			<h2>Compétences</h2>
-			<div class="group competence">
+			<div class="home_group home_competence">
             {% for item in competences %}
 			{% include "home/_card.html.twig" %}
             {% endfor %}
 			</div>
+		{% endif %}
+		{% if connaissances is defined and connaissances|length > 0 %}
 			<h2>Connaissances</h2>
-			<div class="group competence">
+			<div class="home_group home_competence">
             {% for item in connaissances %}
 			{% include "home/_card.html.twig" %}
             {% endfor %}
 			</div>
+		{% endif %}
+		{% if websites is defined and websites|length > 0 %}
+			<h2>Sites</h2>
+			<div class="home_group home_competence"></div>
+		{% endif %}
+		{% if others is defined and others|length > 0 %}
+			<h2>Autre</h2>
+			<div class="home_group home_competence"></div>
+		{% endif %}
 		</section>
 	</main>
 	<footer>
@@ -65,5 +94,5 @@
 		<a href="https://twitter.com/megadekanet" title="Twitter" class="fab fa-twitter icon" style="text-decoration: none" target="_blank" rel="noopener noreferrer"></a>
 		<a href="https://github.com/chr76" title="Github" class="fab fa-github icon" style="text-decoration: none" target="_blank" rel="noopener noreferrer"></a>
 		<a href="https://www.linkedin.com/in/christophe-rousselet/" title="Linkedin" class="fab fa-linkedin icon" style="text-decoration: none" target="_blank" rel="noopener noreferrer"></a>
-	  </footer>
+	</footer>
 {% endblock %}
