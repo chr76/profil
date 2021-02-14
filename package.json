@@ -5,6 +5,7 @@
         "bootstrap": "^4.6.0",
         "core-js": "^3.0.0",
         "jquery": "^3.5.1",
+        "mocha": "^8.2.1",
         "popper.js": "^1.16.1",
         "regenerator-runtime": "^0.13.2",
         "stimulus": "^2.0.0",
@@ -16,7 +17,8 @@
         "dev-server": "encore dev-server",
         "dev": "encore dev",
         "watch": "encore dev --watch",
-        "build": "encore production --progress"
+        "build": "encore production --progress",
+        "test": "mocha --reporter list"
     },
     "dependencies": {
         "node-sass": "^4.14.1",
